@@ -1,0 +1,18 @@
+.card-component {
+    .card {
+        display: block;
+        width: 100%;
+        a {
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+    .card-media {
+        height: 0;
+        padding-top: 20%;
+        margin: 2rem;
+        background-size: contain;
+    }
+}
