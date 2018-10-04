@@ -1,34 +1,16 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import "./AddLink.scss";
 
 // Material UI
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import { withStyles } from "@material-ui/core/styles";
-
 import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
 
-const addLinkStyles = {
-  button: {
-    position: "fixed",
-    bottom: 20,
-    right: 20
-  },
-  search: {
-    backgroundColor: 'white',
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    padding: 15
-  }
-};
-
 class AddLink extends Component {
-    state = {
-        open: false,
-      };
+  state = {
+    open: false
+  };
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -37,16 +19,14 @@ class AddLink extends Component {
     this.setState({ open: false });
   };
   render() {
-    const { classes } = this.props;
-
     return (
-      <div>
+      <div className="add-link-component">
         <Button
           onClick={this.handleOpen}
           variant="fab"
           color="primary"
           aria-label="Add"
-          className={classes.button}
+          className="add-button"
         >
           <AddIcon />
         </Button>
@@ -56,8 +36,9 @@ class AddLink extends Component {
           aria-describedby="simple-modal-description"
           open={this.state.open}
           onClose={this.handleClose}
+          className="modal"
         >
-          <div className={classes.search}>
+          <div className="add-link">
             <Typography variant="title" id="modal-title">
               Text in a modal
             </Typography>
@@ -71,8 +52,4 @@ class AddLink extends Component {
   }
 }
 
-AddLink.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(addLinkStyles)(AddLink);
+export default AddLink;
