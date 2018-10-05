@@ -12,13 +12,14 @@ import CardHeader from "@material-ui/core/CardHeader";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+import likeLink from '../../utils/api'
 
 class CardLink extends Component {
 
   likeLink() {
     console.log("Liking Post");
   }
-  
+
   render() {
     const { data } = this.props;
 
@@ -43,6 +44,7 @@ class CardLink extends Component {
           <CardActions>
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon onClick={this.likeLink} />
+              <span>{data.like_count}</span>
             </IconButton>
             <IconButton aria-label="Share">
               <ShareIcon />

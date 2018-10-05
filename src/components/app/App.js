@@ -12,9 +12,6 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
-// Facebook Login
-import FacebookLogin from "react-facebook-login";
-
 const appStyles = {
   root: {
     flexGrow: 1
@@ -25,18 +22,13 @@ const appStyles = {
 };
 
 class App extends Component {
+  state = {
+    links: [],
+    loggedUser: false
+  };
 
-  
-  constructor(props) {
-    super(props);
-    this.state = { isToggleOn: true, links:[] };
-
-    // This binding is necessary to make `this` work in the callback
-    this.responseFacebook = this.responseFacebook.bind(this);
-  }
-
-  responseFacebook(response) {
-      console.log(response.accessToken)
+  constructor() {
+    super();
   }
 
   componentDidMount() {
@@ -56,21 +48,23 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <FacebookLogin
-          appId="341855376385243"
-          autoLoad={true}
-          fields="name,email,picture"
-          callback={this.responseFacebook}
-        />
-
         <Grid container className={classes.root} spacing={16}>
-          {links.map((link, index) => (
-            <Grid key={index} item xs={12}>
-              <Grid container className={classes.demo} justify="center">
-                <CardLink data={link} />
-              </Grid>
-            </Grid>
-          ))}
+          {[]
+            .concat(links) 
+            .sort((a, b) => {
+              if(a.like_count < b.like_count) return 1
+              if(a.like_count > b.like_count) return -1
+              return 0
+            })
+            .map(
+              (data, index) => (
+                <Grid key={index} item xs={12}>
+                  <Grid container className={classes.demo} justify="center">
+                    <CardLink data={data} />
+                  </Grid>
+                </Grid>
+              )
+            )}
         </Grid>
 
         <AddLink />
