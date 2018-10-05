@@ -11,5 +11,9 @@ function getLinks() {
     return axios.get(url).then(res => res.data);
 }
 
+function likeLink(id){
+    let url = `${BASE_URL}/links/${id}/like`;
+    // return axios.post(url).then(res => res.data)
+}
 
 export default getLinks 

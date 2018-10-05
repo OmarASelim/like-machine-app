@@ -12,7 +12,6 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
-
 // Facebook Login
 import FacebookLogin from "react-facebook-login";
 
@@ -25,15 +24,25 @@ const appStyles = {
   }
 };
 
-
-
 class App extends Component {
   state = {
     links: []
   };
+  
+
+
+  responseFacebook(response) {
+    this.props.onSubmit({
+      loggedUser: response
+    });
+  }
 
   componentDidMount() {
     this.getLinksData();
+    this.state = { isToggleOn: true };
+
+    // This binding is necessary to make `this` work in the callback
+    this.responseFacebook = this.responseFacebook.bind(this);
   }
 
   getLinksData() {
@@ -49,6 +58,12 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <FacebookLogin
+          appId="341855376385243"
+          autoLoad={true}
+          fields="name,email,picture"
+          callback={this.responseFacebook}
+        />
 
         <Grid container className={classes.root} spacing={16}>
           {links.map((link, index) => (
@@ -60,7 +75,7 @@ class App extends Component {
           ))}
         </Grid>
 
-       <AddLink />
+        <AddLink />
       </div>
     );
   }
