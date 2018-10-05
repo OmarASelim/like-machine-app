@@ -25,24 +25,22 @@ const appStyles = {
 };
 
 class App extends Component {
-  state = {
-    links: []
-  };
-  
 
+  
+  constructor(props) {
+    super(props);
+    this.state = { isToggleOn: true, links:[] };
+
+    // This binding is necessary to make `this` work in the callback
+    this.responseFacebook = this.responseFacebook.bind(this);
+  }
 
   responseFacebook(response) {
-    this.props.onSubmit({
-      loggedUser: response
-    });
+      console.log(response.accessToken)
   }
 
   componentDidMount() {
     this.getLinksData();
-    this.state = { isToggleOn: true };
-
-    // This binding is necessary to make `this` work in the callback
-    this.responseFacebook = this.responseFacebook.bind(this);
   }
 
   getLinksData() {
