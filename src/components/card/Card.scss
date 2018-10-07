@@ -1,4 +1,6 @@
 .card-component {
+    width: 100%;
+    height: 100%;
     .card {
         display: block;
         width: 100%;
@@ -10,11 +12,14 @@
                 }
             }
         }
-    }
-    .card-media {
-        height: 0;
-        padding-top: 20%;
-        margin: 2rem;
-        background-size: contain;
+        .card-media {
+            height: 0;
+            padding-top: 20%;
+            margin: 2rem;
+            background-size: contain;
+        }
+        .card-desc{
+            min-height: 60px;
+        }
     }
 }

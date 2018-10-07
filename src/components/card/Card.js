@@ -15,8 +15,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ShareIcon from "@material-ui/icons/Share";
-
+import DeleteIcon from "@material-ui/icons/Delete";
 
 class CardLink extends Component {
   state = {
@@ -25,6 +24,7 @@ class CardLink extends Component {
   };
   likeLink() {
     likeLink(this.props.data.id);
+    this.setState({isLiked: true})
   }
 
   unLikeLink() {
@@ -54,7 +54,9 @@ class CardLink extends Component {
             title="Contemplative Reptile"
           />
           <CardContent>
-            <Typography component="p">{data.description}</Typography>
+            <Typography className="card-desc" component="p">
+              {data.description}
+            </Typography>
           </CardContent>
 
           <CardActions>
@@ -62,7 +64,7 @@ class CardLink extends Component {
               <div>
                 {data.liked ? (
                   <IconButton aria-label="Add to favorites">
-                    <FavoriteIcon onClick={this.unLikeLink.bind(this)} />
+                    <FavoriteIcon  onClick={this.unLikeLink.bind(this)}  />
                     <span>{data.like_count}</span>
                   </IconButton>
                 ) : (
@@ -71,10 +73,13 @@ class CardLink extends Component {
                     <span>{data.like_count}</span>
                   </IconButton>
                 )}
-
-                <IconButton aria-label="Share">
-                  <ShareIcon onClick={this.deleteLink.bind(this)} />
-                </IconButton>
+                {data.owned ? (
+                  <IconButton aria-label="Delete">
+                    <DeleteIcon onClick={this.deleteLink.bind(this)} />
+                  </IconButton>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               ""
