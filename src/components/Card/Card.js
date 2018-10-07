@@ -18,36 +18,35 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 class CardLink extends Component {
-
   state = {
     isLoggedIn: false,
-    isLiked: false
+    isLiked: false,
+    likeCount: 0
   };
-  likeLink() {
+
+  handleLikeLink() {
     likeLink(this.props.data.id, this.callback);
-    this.setState({isLiked: true})
+    this.setState({ isLiked: true, likeCount: this.state.likeCount + 1 });
   }
 
-  unLikeLink() {
+  handleUnLikeLink() {
     unLikeLink(this.props.data.id);
+    this.setState({ isLiked: false, likeCount: this.state.likeCount - 1 });
   }
 
-  deleteLink() {
+  handleDeleteLink() {
     deleteLink(this.props.data.id);
   }
 
-  // callback = () => {
-  //   this.props.updateLoginState({isLoggedIn: true})
-  // };
-
-  updateLoggedInState = liked => {
-  };
-
-  callback = () => {
-    this.setState({ isLiked: true });
-  };
+  componentDidMount() {
+    this.setState({
+      isLiked: this.props.data.liked,
+      likeCount: this.props.data.like_count
+    });
+  }
 
   render() {
+    const { isLiked, likeCount } = this.state;
     const { data, isLoggedIn } = this.props;
 
     return (
@@ -74,20 +73,22 @@ class CardLink extends Component {
           <CardActions>
             {isLoggedIn ? (
               <div>
-                {data.liked ? (
+                {isLiked ? (
                   <IconButton aria-label="Add to favorites">
-                    <FavoriteIcon  onClick={this.unLikeLink.bind(this)}  />
-                    <span>{data.like_count}</span>
+                    <FavoriteIcon onClick={this.handleUnLikeLink.bind(this)} />
+                    <span>{likeCount}</span>
                   </IconButton>
                 ) : (
                   <IconButton aria-label="Add to favorites">
-                    <FavoriteBorderIcon onClick={this.likeLink.bind(this)} />
-                    <span>{data.like_count}</span>
+                    <FavoriteBorderIcon
+                      onClick={this.handleLikeLink.bind(this)}
+                    />
+                    <span>{likeCount}</span>
                   </IconButton>
                 )}
                 {data.owned ? (
                   <IconButton aria-label="Delete">
-                    <DeleteIcon onClick={this.deleteLink.bind(this)} />
+                    <DeleteIcon onClick={this.handleDeleteLink.bind(this)} />
                   </IconButton>
                 ) : (
                   ""
