@@ -10,19 +10,27 @@ axios.defaults.headers.common = {
   Authorization: "Bearer " + localStorage.getItem("token")
 };
 
+// GET REQUESTS
+
 export function getLinks() {
   let url = `${BASE_URL}/links`;
   return axios.get(url).then(res => res.data);
 }
 
+// POST REQUESTS
+
+export function postLink(postedLink) {
+  let url = `${BASE_URL}/links`;
+  return axios
+    .post(url, {
+      url: postedLink
+    })
+    .then(res => console.log(res.data));
+}
+
 export function likeLink(id) {
   let url = `${BASE_URL}/links/${id}/like`;
   return axios.post(url).then(res => res.data);
-}
-
-export function unLikeLink(id) {
-  let url = `${BASE_URL}/links/${id}/like`;
-  return axios.delete(url).then(res => res.data);
 }
 
 export function responseFacebook(response) {
@@ -36,13 +44,11 @@ export function responseFacebook(response) {
     });
 }
 
-export function postLink(postedLink) {
-  let url = `${BASE_URL}/links`;
-  return axios
-    .post(url, {
-      url: postedLink
-    })
-    .then(res => console.log(res.data));
+// DELETE REQUESTS
+
+export function unLikeLink(id) {
+  let url = `${BASE_URL}/links/${id}/like`;
+  return axios.delete(url).then(res => res.data);
 }
 
 export function deleteLink(id) {
