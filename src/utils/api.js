@@ -33,7 +33,7 @@ export function likeLink(id) {
   return axios.post(url).then(res => res.data);
 }
 
-export function responseFacebook(response) {
+export function responseFacebook(response, cb) {
   let url = `${BASE_URL}/session`;
   axios
     .post(url, {
@@ -41,7 +41,12 @@ export function responseFacebook(response) {
     })
     .then(res => {
       localStorage.setItem("token", res.data.id);
-    });
+    }).then(()=>{
+      if(cb){
+        cb()
+      }
+    })
+    
 }
 
 // DELETE REQUESTS

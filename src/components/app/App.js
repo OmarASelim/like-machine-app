@@ -22,8 +22,11 @@ class App extends Component {
       this.setState({ isLoggedIn: true });
     }
   }
+  
+  updateLoggedInState = userData => {
+    this.setState({ isLoggedIn: userData });
+  };
 
-  handleChange() {}
   getLinksData() {
     getLinks().then(links => {
       this.setState({ links });
@@ -34,7 +37,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header isLoggedIn={isLoggedIn} />
+        <Header isLoggedIn={isLoggedIn} updateLoginState={this.updateLoggedInState}/>
 
         <Grid container className="root">
           {[]
@@ -46,7 +49,7 @@ class App extends Component {
             })
             .map((data, index) => (
               <Grid key={index} item xs={12} sm={4} className="spacing">
-                <CardLink data={data} isLoggedIn={isLoggedIn} />
+                <CardLink data={data} isLoggedIn={isLoggedIn}  />
               </Grid>
             ))}
         </Grid>

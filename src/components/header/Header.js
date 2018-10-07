@@ -15,6 +15,10 @@ import Typography from "@material-ui/core/Typography";
 import FacebookLogin from "react-facebook-login";
 
 class Header extends Component {
+  callback = () => {
+    this.props.updateLoginState({ isLoggedIn: true });
+  };
+
   render() {
     const { isLoggedIn } = this.props;
 
@@ -36,7 +40,7 @@ class Header extends Component {
               <FacebookLogin
                 appId="341855376385243"
                 fields="name,email,picture"
-                callback={responseFacebook}
+                callback={res => responseFacebook(res, this.callback)}
                 cssClass="login-button"
               />
             ) : (
