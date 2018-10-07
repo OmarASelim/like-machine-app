@@ -20,7 +20,7 @@ class Header extends Component {
 
     return (
       <div className="header-component">
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               className="menu-button"
