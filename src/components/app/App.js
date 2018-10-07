@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import getLinks from "../../utils/api";
+import { getLinks } from "../../utils/api";
 import "./app.scss";
 
 // Components
@@ -9,30 +9,19 @@ import AddLink from "../add-link/AddLink";
 
 //Material UI
 import Grid from "@material-ui/core/Grid";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-
-const appStyles = {
-  root: {
-    flexGrow: 1
-  },
-  grow: {
-    flexGrow: 1
-  }
-};
 
 class App extends Component {
   state = {
     links: [],
-    loggedUser: false
+    isLoggedIn: false
   };
 
-  constructor() {
-    super();
-  }
 
   componentDidMount() {
     this.getLinksData();
+    if (localStorage.getItem("token")) {
+      this.setState({ isLoggedIn: true });
+    }
   }
 
   getLinksData() {
@@ -40,42 +29,33 @@ class App extends Component {
       this.setState({ links });
     });
   }
-
   render() {
-    const { links } = this.state;
-    const { classes } = this.props;
+    const { links, isLoggedIn } = this.state;
 
     return (
       <div className="App">
-        <Header />
-        <Grid container className={classes.root} spacing={16}>
-          {[]
-            .concat(links) 
-            .sort((a, b) => {
-              if(a.like_count < b.like_count) return 1
-              if(a.like_count > b.like_count) return -1
-              return 0
-            })
-            .map(
-              (data, index) => (
-                <Grid key={index} item xs={12}>
-                  <Grid container className={classes.demo} justify="center">
-                    <CardLink data={data} />
-                  </Grid>
-                </Grid>
-              )
-            )}
-        </Grid>
+        <Header isLoggedIn={isLoggedIn} />
 
-        <AddLink />
+        <Grid container className="root" spacing={16}>
+          {[]
+            .concat(links)
+            .sort((a, b) => {
+              if (a.like_count < b.like_count) return 1;
+              if (a.like_count > b.like_count) return -1;
+              return 0;
+            })
+            .map((data, index) => (
+              <Grid key={index} item xs={12}>
+                <Grid container justify="center">
+                  <CardLink data={data} isLoggedIn={isLoggedIn} />
+                </Grid>
+              </Grid>
+            ))}
+        </Grid>
+        {isLoggedIn ? <AddLink /> : ""}
       </div>
     );
   }
 }
 
-// export default App;
-App.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(appStyles)(App);
+export default App;
