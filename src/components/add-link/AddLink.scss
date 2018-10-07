@@ -1,16 +1,21 @@
 .add-link-component {
-  .add-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-  }
+    .add-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
 }
 
 .add-link {
-  background-color: #fff;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 15px;
+    background-color: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+}
+
+.submit-button {
+    float: right;
+    margin: 5px 0 !important;
 }

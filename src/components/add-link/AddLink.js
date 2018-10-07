@@ -28,9 +28,9 @@ class AddLink extends Component {
   };
 
   onSubmit = e => {
-    e.preventDefault();
     const { url } = this.state;
     postLink(url);
+    this.handleClose();
   };
 
   render() {
@@ -58,13 +58,24 @@ class AddLink extends Component {
           <div className="add-link">
             <form noValidate autoComplete="off" onSubmit={this.onSubmit}>
               <TextField
-                id="standard-name"
                 name="url"
                 label="URL"
                 value={url}
                 onChange={this.onChange}
                 margin="normal"
+                variant="outlined"
+                fullWidth
+                required
               />
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                className="submit-button"
+                onClick={this.onSubmit}
+              >
+                Post
+              </Button>
             </form>
           </div>
         </Modal>
