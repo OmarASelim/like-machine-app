@@ -1,4 +1,3 @@
-import _ from "lodash";
 import axios from "axios";
 
 const BASE_URL = "https://likemachine-api.nerdgeschoss.de";
@@ -25,7 +24,7 @@ export function postLink(postedLink) {
     .post(url, {
       url: postedLink
     })
-    .then(res => console.log(res.data));
+    .then(res => res.data);
 }
 
 export function likeLink(id) {

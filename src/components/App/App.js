@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getLinks, responseFacebook } from "../../utils/api";
+import { getLinks } from "../../utils/api";
 import "./App.scss";
 
 // Components
