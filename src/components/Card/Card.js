@@ -18,12 +18,13 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 class CardLink extends Component {
+
   state = {
     isLoggedIn: false,
     isLiked: false
   };
   likeLink() {
-    likeLink(this.props.data.id);
+    likeLink(this.props.data.id, this.callback);
     this.setState({isLiked: true})
   }
 
@@ -34,6 +35,17 @@ class CardLink extends Component {
   deleteLink() {
     deleteLink(this.props.data.id);
   }
+
+  // callback = () => {
+  //   this.props.updateLoginState({isLoggedIn: true})
+  // };
+
+  updateLoggedInState = liked => {
+  };
+
+  callback = () => {
+    this.setState({ isLiked: true });
+  };
 
   render() {
     const { data, isLoggedIn } = this.props;

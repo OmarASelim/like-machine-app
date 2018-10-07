@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { getLinks, responseFacebook } from "../../utils/api";
-import "./app.scss";
+import "./App.scss";
 
 // Components
-import Header from "../header/Header";
-import CardLink from "../card/Card";
-import AddLink from "../add-link/AddLink";
+import Header from "../Header/Header";
+import CardLink from "../Card/Card";
+import AddLink from "../AddLink/AddLink";
 
 //Material UI
 import Grid from "@material-ui/core/Grid";
 
-class App extends Component {
+class App extends Component { 
   state = {
     links: [],
     isLoggedIn: false
