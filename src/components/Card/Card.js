@@ -21,7 +21,8 @@ class CardLink extends Component {
   state = {
     isLoggedIn: false,
     isLiked: false,
-    likeCount: 0
+    likeCount: 0,
+    owned: ''
   };
 
   handleLikeLink() {
@@ -36,17 +37,19 @@ class CardLink extends Component {
 
   handleDeleteLink() {
     deleteLink(this.props.data.id);
+    this.setState({ owned: '' })
   }
 
   componentDidMount() {
     this.setState({
       isLiked: this.props.data.liked,
-      likeCount: this.props.data.like_count
+      likeCount: this.props.data.like_count,
+      owned: this.props.data.owned
     });
   }
 
   render() {
-    const { isLiked, likeCount } = this.state;
+    const { isLiked, likeCount, owned } = this.state;
     const { data, isLoggedIn } = this.props;
 
     return (
@@ -86,7 +89,7 @@ class CardLink extends Component {
                     <span>{likeCount}</span>
                   </IconButton>
                 )}
-                {data.owned ? (
+                {owned ? (
                   <IconButton aria-label="Delete">
                     <DeleteIcon onClick={this.handleDeleteLink.bind(this)} />
                   </IconButton>

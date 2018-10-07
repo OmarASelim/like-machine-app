@@ -40,12 +40,12 @@ export function responseFacebook(response, cb) {
     })
     .then(res => {
       localStorage.setItem("token", res.data.id);
-    }).then(()=>{
-      if(cb){
-        cb()
-      }
     })
-    
+    .then(() => {
+      if (cb) {
+        cb();
+      }
+    });
 }
 
 // DELETE REQUESTS
@@ -57,5 +57,10 @@ export function unLikeLink(id) {
 
 export function deleteLink(id) {
   let url = `${BASE_URL}/links/${id}`;
-  return axios.delete(url).then(res => console.log(res.data));
+  return axios.delete(url).then(res => res.data);
+}
+
+export function deleteSession(cb) {
+  let url = `${BASE_URL}/session`;
+  return axios.delete(url).then(res => res.data);
 }

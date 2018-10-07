@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Header.scss";
 
 // APIs
-import { responseFacebook } from "../../utils/api";
+import { responseFacebook, deleteSession } from "../../utils/api";
 
 // Material UI
 import AppBar from "@material-ui/core/AppBar";
@@ -19,6 +19,11 @@ class Header extends Component {
     this.props.updateLoginState({ isLoggedIn: true });
   };
 
+  logout = () => {
+    deleteSession();
+    localStorage.removeItem("token");
+    this.props.updateLoginState({ isLoggedIn: false });
+  };
   render() {
     const { isLoggedIn } = this.props;
 
@@ -44,7 +49,7 @@ class Header extends Component {
                 cssClass="login-button"
               />
             ) : (
-              <span>Logout</span>
+              <span onClick={this.logout}>Logout</span>
             )}
           </Toolbar>
         </AppBar>

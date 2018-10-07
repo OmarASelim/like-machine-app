@@ -10,7 +10,7 @@ import AddLink from "../AddLink/AddLink";
 //Material UI
 import Grid from "@material-ui/core/Grid";
 
-class App extends Component { 
+class App extends Component {
   state = {
     links: [],
     isLoggedIn: false
@@ -22,7 +22,7 @@ class App extends Component {
       this.setState({ isLoggedIn: true });
     }
   }
-  
+
   updateLoggedInState = userData => {
     this.setState({ isLoggedIn: userData });
   };
@@ -37,7 +37,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header isLoggedIn={isLoggedIn} updateLoginState={this.updateLoggedInState}/>
+        <Header
+          isLoggedIn={isLoggedIn}
+          updateLoginState={this.updateLoggedInState}
+        />
 
         <Grid container className="root">
           {[]
@@ -49,7 +52,7 @@ class App extends Component {
             })
             .map((data, index) => (
               <Grid key={index} item xs={12} sm={4} className="spacing">
-                <CardLink data={data} isLoggedIn={isLoggedIn}  />
+                <CardLink data={data} isLoggedIn={isLoggedIn} />
               </Grid>
             ))}
         </Grid>
